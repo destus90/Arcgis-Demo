@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~reset-css/_reset";
+@import "~leaflet/dist/leaflet.css";
+@import '~leaflet-graphicscale/dist/Leaflet.GraphicScale.min.css';
+@import "~ngx-toastr/toastr";
+
+@font-face {
+  font-family: segoeui;
+  src: url('/assets/fonts/segoeui.ttf');
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-size: 14px;
+  overflow: hidden;
+  font-family: segoeui !important;
+}
+
+.toast-bottom-right {
+  right: 5px;
+  bottom: -3px;
+}

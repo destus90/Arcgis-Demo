@@ -1,0 +1,42 @@
+<div class="overlay" *ngIf="modal" [style.zIndex]="overlayZIndex"></div>
+
+<div class="window" appWindowDragging @windowAnimation [maximize]="maximize | async"
+     [minimize]="minimize | async"
+     [class.window_maximize]="maximize | async"
+>
+
+  <div class="window-resize-corner">
+    <div class="window-top-left-corner" (mousedown)="onMouseResize($event, 'top-left')"></div>
+    <div class="window-bottom-left-corner" (mousedown)="onMouseResize($event, 'bottom-left')"></div>
+    <div class="window-top-right-corner" (mousedown)="onMouseResize($event, 'top-right')"></div>
+    <div class="window-right-bottom-corner" (mousedown)="onMouseResize($event, 'right-bottom')"></div>
+  </div>
+
+  <div class="window-resize-bar">
+    <div class="window-top-bar" (mousedown)="onMouseResize($event, 'top')"></div>
+    <div class="window-right-bar" (mousedown)="onMouseResize($event, 'right')"></div>
+    <div class="window-bottom-bar" (mousedown)="onMouseResize($event, 'bottom')"></div>
+    <div class="window-left-bar" (mousedown)="onMouseResize($event, 'left')"></div>
+  </div>
+
+  <div class="window__header header" (dragstart)="$event.preventDefault()">
+      <span class="header__title">
+        <ng-container *ngIf="!caption">
+          <ng-content></ng-content>
+        </ng-container>
+        <ng-container *ngIf="caption">
+          {{caption}}
+        </ng-container>
+      </span>
+      <div class="header__control">
+        <!--<img src="assets/buttons/controls/minimize-btn.png" title="Свернуть" class="icon-control" *ngIf="!(maximize.value || minimize.value)" (click)="minimizeWindow()" />-->
+        <!--<span title="Свернуть в окно" class="icon-control k-icon k-i-windows k-i-window-restore k-i-tiles" *ngIf="maximize | async" (click)="rollWindow()"></span>-->
+        <!--<img src="assets/buttons/controls/maximize-btn.png" title="Развернуть" class="icon-control" *ngIf="!(maximize.value || minimize.value)" (click)="maximizeWindow()" />-->
+        <!--<span title="Развернуть" class="icon-control k-icon k-i-windows k-i-window-restore k-i-tiles" *ngIf="minimize | async" (click)="restoreWindow()"></span>-->
+        <img src="assets/buttons/controls/close-btn.png" title="Закрыть" class="icon-control" (click)="onClose()" />
+      </div>
+  </div>
+  <div class="window__content content" [hidden]="minimize | async">
+    <ng-content></ng-content>
+  </div>
+</div>

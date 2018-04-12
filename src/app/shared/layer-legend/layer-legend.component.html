@@ -1,0 +1,6 @@
+<ul class="legend">
+  <li class="layer" *ngFor="let legend of layer.legend">
+    <img class="layer__icon" [src]="getLegendIcon(legend)">
+    <label class="layer__title">{{legend.label}}</label>
+  </li>
+</ul>

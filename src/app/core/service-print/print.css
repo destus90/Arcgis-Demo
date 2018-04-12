@@ -1,0 +1,36 @@
+@media print {
+  .leaflet-top {
+    display: none;
+  }
+}
+
+html {
+  height: 800px;
+}
+
+.print-mapName {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  padding: 3px;
+}
+
+.print-map {
+  position: relative;
+  left: 0;
+  overflow: hidden;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  page-break-after: always;
+}
+
+.print-legend {
+  position: relative;
+}
+
+.watermark {
+  z-index: 2000;
+  position: absolute;
+  text-align: center;
+  left: 10px;
+}

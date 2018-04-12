@@ -1,0 +1,27 @@
+.source-data {
+  display: flex;
+  align-items: center;
+
+  &__left-block {
+    flex: 0 0 25px;
+    margin-left: -15px;
+  }
+
+  &__name {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  &__right-block {
+    flex-grow: 1;
+    flex-shrink: 0;
+    margin-right: -15px;
+  }
+
+}
+
+.block {
+  height: 3px;
+  background-color: #c8cbcc;
+}

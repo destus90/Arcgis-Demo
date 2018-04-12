@@ -1,0 +1,12 @@
+<div class="app-print">
+  <input class="app-print-input" #mapName type="text" placeholder="Введите наименование карты">
+  <div class="app-print-params">
+    <div>
+      <label><input #printLegend type="checkbox"/> печать легенды</label>
+    </div>
+    <div>
+      <label><input #printScaleBar type="checkbox"/> печать масштабной линейки</label>
+    </div>
+  </div>
+  <button kendoButton (click)="printMap()">Печать</button>
+</div>

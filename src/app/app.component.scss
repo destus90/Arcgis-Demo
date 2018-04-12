@@ -1,0 +1,32 @@
+.container-fluid {
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__content {
+    flex: 1;
+  }
+
+}
+
+.ht__divider {
+  height: 8px;
+  background: url('/assets/ht__divider.png') repeat-x;
+}
+
+//.tm__divider {
+//  height: 2px;
+//  background-color: #8a8a8a;
+//}
+
+.content {
+  display: flex;
+
+  &__map {
+    flex: 1;
+    padding-right: 0;
+    overflow-y: hidden;
+  }
+
+}

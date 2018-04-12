@@ -1,0 +1,22 @@
+<div id="map">
+  <div #spinner class="map__loader"></div>
+</div>
+
+
+<app-window class="legend" *ngIf="legendWindowShowed" caption="Управление картой" (close)="onCloseLegendWindow()">
+
+  <p>legend window</p>
+
+</app-window>
+
+<app-window class="print" *ngIf="printWindowShowed" caption="Печать карты" (close)="onClosePrintWindow()">
+
+  <p>print window</p>
+
+</app-window>
+
+<app-window class="basemap" *ngIf="baseMapWindowShowed" caption="Базовые карты" (close)="onCloseBaseMapWindow()">
+
+  <app-basemap></app-basemap>
+
+</app-window>

@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="row__base-map base-map">
+    <div class="base-map__preview preview" [class.preview_active]="!baseIsActive" (click)="switchOffBaseMap()" ></div>
+    <p class="base-map__title">Без базовой карты</p>
+  </div>
+</div>
+
+<div class="divider">
+  <app-basemap-source-data name="Внешние источники"></app-basemap-source-data>
+</div>
+
+<div class="row">
+  <div @previewAnimation class="row__base-map base-map"
+       *ngFor="let basemap of baseMaps">
+    <div class="base-map__preview preview" [class.preview_active]="isActive(basemap)" (click)="toggleBaseMap(basemap.name)" >
+      <img @previewAnimation class="preview__image" [src]="basemap.image" />
+    </div>
+    <p class="base-map__title">{{basemap.name}}</p>
+  </div>
+</div>
+
+
+
+
