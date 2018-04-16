@@ -1,11 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import * as L from 'leaflet';
 import 'leaflet-graphicscale';
+import { finalize } from 'rxjs/operators';
 
 import { Spinner } from './leaflet.spin';
 import { BasemapService } from '@app/core/controls';
-import { ArcgisService, MapService, SourceService, Service, Source } from '@app/core';
+import { ArcgisService, MapService, SourceService, Service, Source, LegendResponse } from '@app/core';
 
 const IMAGE_PATH = 'https://unpkg.com/leaflet@1.0.3/dist/images/';
 
@@ -19,10 +20,12 @@ export class MapComponent implements OnInit {
   baseMapWindowShowed = false;
   legendWindowShowed = false;
   printWindowShowed = false;
+  service: Service;
 
   @ViewChild('spinner') private spinner: ElementRef;
 
   constructor(
+    private cd: ChangeDetectorRef,
     private toastr: ToastrService,
     private mapService: MapService,
     private baseMapService: BasemapService,
@@ -66,6 +69,7 @@ export class MapComponent implements OnInit {
       this.toastr.error(e.message, 'Ошибка');
     }
     this.createService();
+    setTimeout(() => this.showLegendWindow(), 0);
   }
 
   createService() {
@@ -73,21 +77,28 @@ export class MapComponent implements OnInit {
     const service = new Service('PUBLIC/MAP_SAF_TOWN', 'MapServer', source);
     this.sourceService.addSource(source);
     this.mapService.addActiveService(service);
-    this.fetchLegend(service);
+    this.service = service;
+    this.fetchLegend();
   }
 
-  fetchLegend(service: Service) {
-
-    const onLegendLoadSuccess = legend => {
-      // this.cd.markForCheck();
+  fetchLegend() {
+    Object.assign(this.service, {legendLoading: true});
+    const onLegendLoadSuccess = (legend: LegendResponse) => {
+      const layers = this.arcgisService.getLayersFromLegend(this.service, legend);
+      Object.assign(this.service, {legendLoaded: true, layers});
     };
 
     const onLegendLoadFail = e => {
+      Object.assign(this.service, {legendLoaded: false});
       this.toastr.error(e.message);
-      // this.cd.markForCheck();
     };
 
-    this.arcgisService.setLegend(service)
+    this.arcgisService.fetchLegend(this.service)
+      .pipe(
+        finalize(() => {
+          Object.assign(this.service, {legendLoading: false});
+        })
+      )
       .subscribe(onLegendLoadSuccess, onLegendLoadFail);
   }
 

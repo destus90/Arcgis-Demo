@@ -1,0 +1,27 @@
+<p *ngIf="service.legendLoading">Загрузка...</p>
+<p *ngIf="hasError()">Ошибка загрузки легенды для сервиса {{service.name}}</p>
+
+<ng-container *ngIf="service.legendLoaded">
+  <ul class="layers">
+    <li class="layers__layer layer" *ngFor="let layer of service.layers">
+      <div class="layer__info">
+        <div class="layer__description">
+          <!--legend spinner-->
+          <span *ngIf="spinnerIsVisible(layer)" class="legend__loader k-icon k-i-loading" title="Загрузка"></span>
+
+          <!--legend error notification-->
+          <i *ngIf="errNtfIsVisible(layer)" class="fa fa-exclamation-triangle legend__warning" title="Ошибка"></i>
+
+          <!--title-->
+          <span class="layer__name" (click)="layer.toggleLegendExpanded()">{{ layer.name }}</span>
+        </div>
+
+      </div>
+
+      <!--legend-->
+      <div class="legend__symbol">
+        <app-layer-legend [layer]="layer"></app-layer-legend>
+      </div>
+    </li>
+  </ul>
+</ng-container>

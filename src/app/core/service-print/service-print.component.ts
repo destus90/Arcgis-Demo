@@ -256,7 +256,7 @@ export class ServicePrintComponent implements OnInit {
   }
 
   fetchLegend(service: Service) {
-    return this.arcgisService.setLegend(service);
+    return this.arcgisService.fetchLegend(service);
   }
 
 

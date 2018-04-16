@@ -5,7 +5,7 @@
 
 <app-window class="legend" *ngIf="legendWindowShowed" caption="Управление картой" (close)="onCloseLegendWindow()">
 
-  <p>legend window</p>
+  <app-legend [service]="service"></app-legend>
 
 </app-window>
 

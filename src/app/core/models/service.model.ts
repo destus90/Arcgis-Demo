@@ -32,7 +32,7 @@ export class Service extends RasterLayer {
   getCheckedLayers(): Layer[] {
     const checkedLayers: Layer[] = [];
     this.checkRecursiveLayers(this.layers, checkedLayers, 'checked');
-    return checkedLayers.filter((layer: Layer) => layer.isSingleLayer());
+    return checkedLayers;
   }
 
   getCheckedLayerIds(): number[] {
@@ -89,33 +89,6 @@ export class Service extends RasterLayer {
       }
     });
     return findedLayer;
-  }
-
-  getLayersWithLayerDef() {
-    return this.getLayers().filter((layer: Layer) => layer.layerDef.value);
-  }
-
-  constructDynamicLayers(layerDefs) {
-    return this.getCheckedLayers()
-      .reduce((val: any[], layer: Layer) => {
-        const dynamicLayer = layer.getDynamicLayer(layerDefs[layer.id]);
-        return [...val, dynamicLayer];
-      }, []);
-  }
-
-  clear() {
-    const dynamicMapLayer = this.mapLayer.layer;
-    if (dynamicMapLayer && !this.supportsDynamicLayers) {
-      dynamicMapLayer.setLayerDefs({});
-    }
-    const layers = this.getLayersWithLayerDef();
-    layers.forEach((layer: Layer) => {
-      layer.layerDef.setValue(null);
-      layer.layerDefApplying = false;
-    });
-    this.checkRecursive(false);
-    this.checked = false;
-    this.checkedChild = false;
   }
 
   getNameWithoutFolder(): string {

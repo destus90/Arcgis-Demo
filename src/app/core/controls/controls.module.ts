@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BasemapComponent, BasemapService, BasemapSourceDataComponent } from './basemap/index';
-import { SharedModule } from 'app/shared/index';
+import { SharedModule } from '@app/shared';
+import { LegendComponent } from './legend';
 
 @NgModule({
   imports: [
@@ -10,10 +11,10 @@ import { SharedModule } from 'app/shared/index';
     SharedModule
   ],
   exports: [
-    BasemapComponent
+    BasemapComponent,
+    LegendComponent
   ],
-  entryComponents: [BasemapComponent],
-  declarations: [BasemapComponent, BasemapSourceDataComponent],
+  declarations: [BasemapComponent, BasemapSourceDataComponent, LegendComponent],
   providers: [BasemapService]
 })
 export class ControlsModule { }
