@@ -12,93 +12,36 @@
 }
 
 .layer {
-  display: flex;
-  flex-flow: column;
 
   &__info {
     display: flex;
     flex-grow: 1;
     flex-shrink: 1;
-  }
-
-  &__description {
-    flex-grow: 1;
-    flex-shrink: 1;
+    padding: 5px;
     cursor: pointer;
-  }
+    align-items: center;
 
-  &__opacity {
-    margin-left: auto;
-  }
-
-}
-
-.legend {
-
-  &__loader {
-    font-size: 18px;
-    vertical-align: middle;
-  }
-
-  &__warning {
-    color: #e1a80f;
-  }
-
-  &__symbol {
-    margin-left: 25px;
-  }
-
-}
-
-.opacity {
-  display: flex;
-  flex-basis: 50px;
-  flex-shrink: 0;
-  align-items: center;
-
-  &_active {
-    color: #0275d8;
-  }
-
-  &__icon {
-    cursor: pointer;
-    user-select: none;
-    margin-right: 5px;
-  }
-
-  &__value {
-    font-size: 12px;
-    vertical-align: middle;
-  }
-
-}
-
-.opacity-slider {
-  display: flex;
-  flex-flow: column;
-
-  &__close-icon {
-    font-size: 12px;
-    cursor: pointer;
-    margin-left: auto;
-    align-self: flex-start;
-    opacity: .8;
-
-    &:hover {
-      opacity: 1;
+    &:hover, &_active {
+      background-color: #e0e0ea;
+      border-radius: 2px;
+      box-shadow: 0 0 5px #c7c2c2;
     }
 
   }
 
-  &__header {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    margin: 0 5px;
+  &__symbol {
+
   }
 
-  &__ui-elem {
-    margin: 0 10px;
+  &__name {
+    flex: 1;
+    margin-left: 10px;
+  }
+
+  &__description {
+    cursor: pointer;
+    flex: 1;
+    margin-left: 5px;
   }
 
 }

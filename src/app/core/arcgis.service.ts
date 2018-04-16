@@ -7,7 +7,7 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 import { Service, Layer } from './models';
 
-interface Legend {
+export interface Legend {
   label: string;
   url: string;
   imageData: string;
@@ -47,6 +47,7 @@ export class ArcgisService {
       params: new HttpParams().set('f', 'pjson')
     })
       .pipe(
+        delay(2000),
         catchError(onLegendLoadedFail)
       );
   }

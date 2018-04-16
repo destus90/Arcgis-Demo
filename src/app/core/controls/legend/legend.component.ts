@@ -1,27 +1,33 @@
 import { Component, OnInit, OnDestroy, OnChanges, ChangeDetectorRef, SimpleChanges, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { debounceTime } from 'rxjs/operators';
 
-import { ArcgisService, MapService, Service, Layer } from '@app/core';
+import { ArcgisService, MapService, Service, Layer, Legend } from '@app/core';
 
 @Component({
   selector: 'app-legend',
   templateUrl: './legend.component.html',
-  styleUrls: ['./legend.component.scss']
+  styleUrls: ['./legend.component.scss'],
+  animations: [
+
+    trigger('layersAnimation', [
+      transition(':enter', [
+        style({opacity: 0, transform: 'translateX(-100%)'}),
+        animate(250, style({opacity: 1, transform: 'translateX(0)'}))
+      ])
+    ])
+
+  ]
 })
 
 export class LegendComponent implements OnInit, OnDestroy, OnChanges {
   subscriptions: Subscription[] = [];
-  layers: Layer[];
 
   @Input() service: Service;
 
   constructor(
     private arcgisService: ArcgisService,
-    private mapService: MapService,
-    private cd: ChangeDetectorRef
+    private mapService: MapService
   ) { }
 
   ngOnInit() {
@@ -33,29 +39,33 @@ export class LegendComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.service.currentValue.legendLoading);
+
   }
 
   hasError() {
     return !this.service.legendLoading && !this.service.legendLoaded;
   }
 
-  spinnerIsVisible(layer: Layer): boolean {
-    const service = layer.getService();
-    return service.legendLoading;
+  getImageIcon(layer: Layer) {
+    const legend: Legend = layer.legend[0];
+    return `data:${legend.contentType};base64,${legend.imageData}`;
   }
 
-  errNtfIsVisible(layer: Layer): boolean {
-    const service = layer.getService();
-    return !service.legendLoading && !service.legendLoaded;
+  getWidthForIcon(layer: Layer) {
+    const legend: Legend = layer.legend[0];
+    return legend.width;
   }
 
-  isService(rs) {
-    return rs instanceof Service;
+  getHeightForIcon(layer: Layer) {
+    const legend: Legend = layer.legend[0];
+    return legend.height;
   }
 
-  isLayer(rs) {
-    return rs instanceof Layer;
+  toggleLayer(layer: Layer) {
+    Object.assign(layer, {checked: !layer.checked});
+    this.mapService.activeServices.next(
+      this.mapService.activeServices.getValue()
+    )
   }
 
 }

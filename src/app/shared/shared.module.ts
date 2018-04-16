@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { WindowComponent, ModalDraggingDirective, WindowService, DomService } from './window';
-import { LayerLegendComponent } from './layer-legend/layer-legend.component';
 
 @NgModule({
     imports: [
@@ -21,13 +20,11 @@ import { LayerLegendComponent } from './layer-legend/layer-legend.component';
       HttpClientModule,
       ReactiveFormsModule,
       FormsModule,
-      LayerLegendComponent,
       WindowComponent
     ],
     declarations: [
       WindowComponent,
-      ModalDraggingDirective,
-      LayerLegendComponent
+      ModalDraggingDirective
     ],
   providers: [
     WindowService,
